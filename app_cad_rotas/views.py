@@ -1,11 +1,16 @@
 from django.shortcuts import render, redirect
 from .models import Rotas
 
-# Create your views here.
+
 def home(request):
     return render(request, "cadastros/home.html")
 
+def principal(request):
+    return render(request, "cadastros/principal.html")
 
+def rotas_deletadas(request):
+    pass
+    
 def rota(request):
    if request.method =="POST":
         nova_rota = Rotas()
