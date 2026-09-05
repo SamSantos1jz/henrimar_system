@@ -59,7 +59,7 @@
     </div>
 
     <div class="container form-principal" style="padding: 20px;">
-        <img src="{% static 'logo-principal.png' %}" alt="logo principal" class="img-fluid" >
+        <img src="{% static 'logo-principal.png' %}" alt="logo principal" class="img-fluid" width="50%"  >
         <form action="{% url 'listagem_rotas' %}" method="POST" class="formulario_rotas">
             <h1 style="color: white;">Cadastro de ROTAS</h1>
             {% csrf_token %}
