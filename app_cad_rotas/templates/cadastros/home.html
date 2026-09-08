@@ -1,102 +1,178 @@
 {% load static %}
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="PT-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <!-- Google Fonts (Inter) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Google Fonts (Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
     <!-- Bootstrap 5 CSS & Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
     <title>Tela de ROTAS</title>
     <style>
-        :root {
-            --brand-primary: #2563eb;
-            --brand-primary-hover: #1d4ed8;
-            --brand-dark: #1e1e38;
-            --brand-dark-hover: #14142b;
-            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-        }
-          body {
-                font-family: 'Inter', sans-serif;
-                background: var(--bg-gradient);
-                min-height: 100vh;
-            }
+      :root {
+        --brand-primary: #2563eb;
+        --brand-primary-hover: #1d4ed8;
+        --brand-dark: #1e1e38;
+        --brand-dark-hover: #14142b;
+        --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        background: var(--bg-gradient);
+        min-height: 100vh;
+      }
 
-        .formulario_rotas { 
-            padding:20px;
-            background-color: rgb(42, 96, 197);
-            border-radius: 20px;
-        }
-        .formulario_rotas input {
-            padding: 10px;
-            width: 100%;
-            border-radius: 8px;
-            margin: 5px;
-        }
-        
-        .form-principal { 
-            display: flex;
-            justify-content: center;
-        }
-        .roda-pe{
-            display: flex;
-            justify-content: center;
-        }
-        
-    
+      .formulario_rotas {
+        padding: 20px;
+        background-color: none;
+
+        border-radius: 20px;
+      }
+      .formulario_rotas input {
+        padding: 10px;
+        width: 100%;
+        border-radius: 8px;
+        margin: 5px;
+      }
+
+      .form-principal {
+        display: flex;
+        justify-content: center;
+      }
+      .roda-pe {
+        display: flex;
+        justify-content: center;
+      }
     </style>
-</head>
-<body style="background-color: rgb(52, 52, 238)">
-    <div class="container barra-nav">
-        
+  </head>
+  <body style="background-color: rgb(52, 52, 238)">
+    <div class="container barra-nav"></div>
+    <div class="col-lg-5 text-center border-end-lg border-secondary pe-lg-4">
+      <img
+        src="{% static 'logo-white.jpg' %}"
+        alt="Henrimar System"
+        class="img-fluid my-3"
+        style="max-height: 180px"
+      />
     </div>
 
-    <div class="container form-principal" style="padding: 20px;">
-        <img src="{% static 'logo-principal.png' %}" alt="logo principal" class="img-fluid" width="50%"  >
-        <form action="{% url 'listagem_rotas' %}" method="POST" class="formulario_rotas">
-            <h1 style="color: white;">Cadastro de ROTAS</h1>
-            {% csrf_token %}
-            <input name="rota" type="text" placeholder="ROTA">
-            <input name="motorista" type="text"  placeholder="Motorista">
-            <input type="text" placeholder="Paradas">
-            <input type="text" placeholder="Horario de saida">
-            <input type="text" placeholder="Horario de retorno">
-            <input type="text" placeholder="KM">
-            <button class="form-control-sm" type="submit">Confimar</button>
-        </form>
-           
-    
+    <div class="container form-principal" style="padding: 20px">
+      <form
+        action="{% url 'listagem_rotas' %}"
+        method="POST"
+        class="formulario_rotas"
+      >
+        <h1 style="color: white">Cadastro ROTAS</h1>
+        {% csrf_token %}
+        <input name="rota" type="text" placeholder="ROTA" />
+        <input name="motorista" type="text" placeholder="Motorista" />
+
+        <div class="row">
+          <div class="col-md-8">
+            <input type="text" placeholder="Paradas" />
+          </div>
+          <div class="col-md-4">
+            <input type="text" placeholder="KM" />
+          </div>
+        </div>
+
+        <div class="row Horarios-inputs">
+          <div class="col-12">
+            <h5 style="color: #fff">Horários</h5>
+          </div>
+
+          <div class="col-md-6">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Horário de saída"
+            />
+          </div>
+
+          <div class="col-md-6">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Horário de retorno"
+            />
+          </div>
+        </div>
+        <button class="form-control-sm g-3" type="submit">Confimar</button>
+      </form>
     </div>
 
-                <footer class="container">
-                    <ul class="nav nav-pills nav-fill gap-2 p-1 small bg-primary rounded-5 shadow-sm" id="pillNav2" role="tablist" style="--bs-nav-link-color: var(--bs-white); --bs-nav-pills-link-active-color: var(--bs-primary); --bs-nav-pills-link-active-bg: var(--bs-white);">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active rounded-5" id="home-tab2" data-bs-toggle="tab" type="button" role="tab" aria-selected="true">Home</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link rounded-5" id="profile-tab2" data-bs-toggle="tab" type="button" role="tab" aria-selected="false">Profile</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link rounded-5" id="contact-tab2" data-bs-toggle="tab" type="button" role="tab" aria-selected="false">Contact</button>
-                        </li>
-                    </ul>
-                </footer>
-            
-           
-             <!-- Rodapé do Card -->
-            <div class="mt-4 pt-2 border-top border-light-subtle">
-            <p class="text-secondary mb-0" style="font-size: 0.75rem;">
-                &copy; {% now "Y" %} Henrimar. Todos os direitos reservados.
-            </p>
-            </div>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-            
-</body>
+    <footer class="container">
+      <ul
+        class="nav nav-pills nav-fill gap-2 p-1 small bg-primary rounded-5 shadow-sm"
+        id="pillNav2"
+        role="tablist"
+        style="
+          --bs-nav-link-color: var(--bs-white);
+          --bs-nav-pills-link-active-color: var(--bs-primary);
+          --bs-nav-pills-link-active-bg: var(--bs-white);
+        "
+      >
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link active rounded-5"
+            id="home-tab2"
+            data-bs-toggle="tab"
+            type="button"
+            role="tab"
+            aria-selected="true"
+          >
+            Home
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link rounded-5"
+            id="profile-tab2"
+            data-bs-toggle="tab"
+            type="button"
+            role="tab"
+            aria-selected="false"
+          >
+            Profile
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link rounded-5"
+            id="contact-tab2"
+            data-bs-toggle="tab"
+            type="button"
+            role="tab"
+            aria-selected="false"
+          >
+            Contact
+          </button>
+        </li>
+      </ul>
+    </footer>
+
+    <!-- Rodapé do Card -->
+    <div class="mt-4 pt-2 border-top border-light-subtle">
+      <p class="text-secondary mb-0" style="font-size: 0.75rem">
+        &copy; {% now "Y" %} Henrimar. Todos os direitos reservados.
+      </p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>
