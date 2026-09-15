@@ -26,7 +26,7 @@
     <title>Tela de ROTAS</title>
     <style>
       :root {
-        --brand-primary: #2563eb;
+        --brand-primary: #2563eb; 
         --brand-primary-hover: #1d4ed8;
         --brand-dark: #1e1e38;
         --brand-dark-hover: #14142b;
@@ -63,12 +63,12 @@
   </head>
   <body style="background-color: rgb(52, 52, 238)">
     <div class="container barra-nav"></div>
-    <div class="col-lg-5 text-center border-end-lg border-secondary pe-lg-4">
+    <div class="col-lg-12 text-center border-end-lg border-secondary pe-lg-4">
       <img
         src="{% static 'logo-white.jpg' %}"
         alt="Henrimar System"
         class="img-fluid my-3"
-        style="max-height: 180px"
+        style="max-height: 180px;"
       />
     </div>
 
@@ -113,7 +113,7 @@
             />
           </div>
         </div>
-        <button class="form-control-sm g-3" type="submit">Confimar</button>
+        <button class="form-control-sm g-3 bg-success" style="padding: 20px;" type="submit">Confimar</button>
       </form>
     </div>
 
@@ -137,7 +137,7 @@
             role="tab"
             aria-selected="true"
           >
-            Home
+            Cadastros
           </button>
         </li>
         <li class="nav-item" role="presentation">
@@ -149,7 +149,7 @@
             role="tab"
             aria-selected="false"
           >
-            Profile
+            Rotas
           </button>
         </li>
         <li class="nav-item" role="presentation">
@@ -161,7 +161,7 @@
             role="tab"
             aria-selected="false"
           >
-            Contact
+            Motorista
           </button>
         </li>
       </ul>

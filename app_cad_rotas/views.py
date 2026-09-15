@@ -8,8 +8,6 @@ def home(request):
 def principal(request):
     return render(request, "cadastros/principal.html")
 
-def rotas_deletadas(request):
-    pass
     
 def rota(request):
    if request.method =="POST":
