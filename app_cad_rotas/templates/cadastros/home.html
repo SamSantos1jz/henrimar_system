@@ -30,7 +30,7 @@
         --brand-primary-hover: #1d4ed8;
         --brand-dark: #1e1e38;
         --brand-dark-hover: #14142b;
-        --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        --bg-gradient: #02447e;
       }
       body {
         font-family: "Inter", sans-serif;
@@ -51,17 +51,14 @@
         margin: 5px;
       }
 
-      .form-principal {
-        display: flex;
-        justify-content: center;
-      }
+     
       .roda-pe {
         display: flex;
         justify-content: center;
       }
     </style>
   </head>
-  <body style="background-color: rgb(52, 52, 238)">
+  <body >
     <div class="container barra-nav"></div>
     <div class="col-lg-12 text-center border-end-lg border-secondary pe-lg-4">
       <img
@@ -72,7 +69,7 @@
       />
     </div>
 
-    <div class="container form-principal" style="padding: 20px">
+    <div class="container" style="padding: 20px">
       <form
         action="{% url 'listagem_rotas' %}"
         method="POST"
@@ -149,7 +146,7 @@
             role="tab"
             aria-selected="false"
           >
-            Rotas
+            <a href="{% url 'listagem_rotas' %}">Rotas</a>
           </button>
         </li>
         <li class="nav-item" role="presentation">
