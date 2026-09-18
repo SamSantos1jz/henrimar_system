@@ -5,136 +5,221 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Bootstrap 5 CSS & Bootstrap Icons -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
+    
+    <!-- Google Fonts (Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-    <title>ROTAS</title>
+    <!-- Bootstrap 5 CSS & Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+    <title>Gerenciamento de Rotas - HenriMar System</title>
+
     <style>
+      :root {
+        --brand-primary: #2563eb;
+        --bg-gradient: linear-gradient(135deg, #02447e 0%, #01284c 100%);
+      }
+
       body {
         font-family: "Inter", sans-serif;
-        background: #02447e;
+        background: var(--bg-gradient);
         min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
       }
 
-      table {
+      /* Card Glassmorphic para os controles */
+      .glass-card {
+        background: rgba(255, 255, 255, 0.06);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 16px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Inputs estilizados */
+      .search-input {
+        background-color: rgba(255, 255, 255, 0.08) !important;
+        border: 1px solid rgba(255, 255, 255, 0.18) !important;
+        color: #fff !important;
+        border-radius: 10px;
+        padding: 10px 16px;
+      }
+
+      .search-input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      /* Tabela Clean */
+      .table-card {
+        background: #ffffff;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      .table-custom {
+        margin-bottom: 0;
+      }
+
+      .table-custom th {
+        background-color: #f8fafc;
+        color: #475569;
+        font-weight: 600;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 16px;
+        border-bottom: 2px solid #e2e8f0;
+      }
+
+      .table-custom td {
+        padding: 16px;
+        vertical-align: middle;
+        color: #334155;
+        border-bottom: 1px solid #f1f5f9;
+        font-size: 0.95rem;
+      }
+
+      .table-custom tr:last-child td {
+        border-bottom: none;
+      }
+
+      .btn-action {
+        border-radius: 8px;
+        font-weight: 500;
+        padding: 8px 16px;
+        transition: all 0.2s ease;
+      }
+
+      .btn-action:hover {
+        transform: translateY(-1px);
+      }
+
+      .btn-delete {
+        color: #ef4444;
+        background: #fef2f2;
         border: none;
+        padding: 6px 10px;
+        border-radius: 8px;
+        transition: all 0.2s;
       }
 
-      th,
-      td {
-        padding: 12px 8px; /* Espaçamento interno */
-        text-align: left;
-        border-bottom: 1px solid #ccc; /* Cria Apenas a linha horizontal */
+      .btn-delete:hover {
+        background: #fee2e2;
+        color: #dc2626;
       }
     </style>
   </head>
   <body>
-    <div
-      class="container"
-      style="display: flex; flex-direction: column; align-items: center"
-    >
-      <div class="row w-100">
-        <div class="col-lg-12 text-center border-end-lg border-secondary pe-lg-4">
-          <img
-            src="{% static 'logo-white.jpg' %}"
-            alt="Henrimar System"
-            class="img-fluid my-3"
-            style="max-height: 180px"
-          />
-          <div class="row comandos-pesquisa" style="display: flex; justify-content: space-around;">
-                <div class="nav-01 col-lg-6 search ">
-                    <input style=" border-radius: 8px; border: none; padding: 10px; width: 100%;" type="text" placeholder="Pesquisar..." >
-                    
-                </div>
-                <div class="nav-02 col-lg-6 btns-navbar" style="display: flex; justify-content: space-between;">
-                    <button  class="btn-relatorio" type="submit" style="border:none; padding: 10px; border-radius: 8px;">Gerar Relatorio</button>
-                    <a href="{% url 'home.html' %}" style="background-color: green;color: white; padding: 10px; text-decoration: none; border-radius: 8px; ">Home</a>
-                  </div>
+
+    <main class="container py-4 flex-grow-1">
+      <!-- Topo / Logo -->
+      <div class="text-center mb-4">
+        <img
+          src="{% static '/logo-white.jpg' %}"
+          alt="HenriMar System"
+          class="img-fluid"
+          style="max-height: 100px;"
+        />
+      </div>
+
+      <!-- Barra de Ações & Pesquisa -->
+      <div class="glass-card p-3 p-md-4 mb-4">
+        <div class="row g-3 align-items-center">
+          <!-- Campo de Busca -->
+          <div class="col-12 col-md-5">
+            <div class="input-group">
+              <span class="input-group-text bg-transparent border-end-0 text-white-50" style="border: 1px solid rgba(255,255,255,0.18); border-radius: 10px 0 0 10px;">
+                <i class="bi bi-search"></i>
+              </span>
+              <input
+                type="text"
+                class="form-control search-input border-start-0"
+                placeholder="Pesquisar por rota ou motorista..."
+                style="border-radius: 0 10px 10px 0 !important;"
+              />
+            </div>
           </div>
-         
-       
+
+          <!-- Botões de Ação -->
+          <div class="col-12 col-md-7 d-flex flex-wrap gap-2 justify-content-md-end">
+            <button class="btn btn-outline-light btn-action" type="button">
+              <i class="bi bi-file-earmark-pdf me-1"></i> Gerar Relatório
+            </button>
+            
+            <a href="{% url 'home.html' %}" class="btn btn-success btn-action">
+              <i class="bi bi-plus-circle me-1"></i> Registrar Rota
+            </a>
+            
+            <a href="{% url 'principal.html' %}" class="btn btn-primary btn-action">
+              <i class="bi bi-house me-1"></i> Home
+            </a>
+          </div>
         </div>
       </div>
-      <br>
-      <div class="row w-100">
-        <table class="bg-white" style="border-radius: 10px">
-          <tr>
-            <th>id</th>
-            <th>ROTAS</th>
-            <th>MOTORISTA</th>
-            <th>Valor</th>
-            <th>Atividade</th>
-            <th></th>
-          </tr>
-          {% for rota in rotas %}
-          <tr>
-            <td>{{rota.id_rotas}}</td>
-            <td>{{rota.rota}}</td>
-            <td>{{rota.motorista}}</td>
-            <td>200</td>
-            <td>Andamento</td>
-            <td><i class="bi bi-trash3-fill"></i></td>
-          </tr>
-          {% endfor %}
-        </table>
+
+      <!-- Tabela de Rotas -->
+      <div class="table-card">
+        <div class="table-responsive">
+          <table class="table table-custom table-hover align-middle">
+            <thead>
+              <tr>
+                <th scope="col" style="width: 80px;">ID</th>
+                <th scope="col">Rota</th>
+                <th scope="col">Motorista</th>
+                <th scope="col">Valor</th>
+                <th scope="col">Status</th>
+                <th scope="col" class="text-end" style="width: 80px;">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for rota in rotas %}
+              <tr>
+                <td class="fw-bold text-secondary">#{{ rota.id_rotas }}</td>
+                <td class="fw-semibold text-dark">{{ rota.rota }}</td>
+                <td>
+                  <i class="bi bi-person-circle text-muted me-1"></i>
+                  {{ rota.motorista }}
+                </td>
+                <td class="fw-medium text-success">R$ 200,00</td>
+                <td>
+                  <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle rounded-pill px-2 py-1">
+                    <i class="bi bi-clock-history me-1"></i> Andamento
+                  </span>
+                </td>
+                <td class="text-end">
+                  <button class="btn-delete" title="Excluir Rota">
+                    <i class="bi bi-trash3-fill"></i>
+                  </button>
+                </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="6" class="text-center py-4 text-muted">
+                  <i class="bi bi-inbox display-6 d-block mb-2"></i>
+                  Nenhuma rota cadastrada no momento.
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
       </div>
-      <br>
-      <footer class="container">
-      <ul
-        class="nav nav-pills nav-fill gap-2 p-1 small bg-primary rounded-5 shadow-sm"
-        id="pillNav2"
-        role="tablist"
-        style="
-          --bs-nav-link-color: var(--bs-white);
-          --bs-nav-pills-link-active-color: var(--bs-primary);
-          --bs-nav-pills-link-active-bg: var(--bs-white);
-        "
-      >
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link active rounded-5"
-            id="home-tab2"
-            data-bs-toggle="tab"
-            type="button"
-            role="tab"
-            aria-selected="true"
-          >
-            CADASTROS
-          </button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link rounded-5"
-            id="profile-tab2"
-            data-bs-toggle="tab"
-            type="button"
-            role="tab"
-            aria-selected="false"
-          >
-            <a href="{% url 'listagem_rotas' %}" style="color: white; text-decoration: none;">ROTAS</a>
-          </button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link rounded-5"
-            id="contact-tab2"
-            data-bs-toggle="tab"
-            type="button"
-            role="tab"
-            aria-selected="false"
-          >
-            MOTORISTA
-          </button>
-        </li>
-      </ul>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="py-3 text-center">
+      <p class="text-white-50 mb-0" style="font-size: 0.8rem">
+        &copy; {% now "Y" %} HenriMar System. Todos os direitos reservados.
+      </p>
     </footer>
-    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
